@@ -5,6 +5,7 @@ class button {
   color colour = color(0, 0, 0);
   boolean isClicked = false;
   boolean isChanged = false;
+  
 
 
   void checkPressed(int btnId) {
@@ -30,5 +31,8 @@ class button {
   
   void drawMe() {
     rect(pos.x, pos.y, size.x, size.y);
+    textSize(16);
+    fill(255);
+    text(text, pos.x+size.x/2-5, pos.y+size.y-10);
   }
 }
