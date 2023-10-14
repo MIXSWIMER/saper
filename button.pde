@@ -2,23 +2,27 @@ class button {
   PVector pos = new PVector(0, 0);
   PVector size = new PVector(30, 30);
   String text = "";
-  color colour = color(0, 0, 0);
+  int[] colour = {0, 0, 0};
   boolean isClicked = false;
   boolean isChanged = false;
-  
+  String but = "L";
+
 
 
   void checkPressed(int btnId) {
     boolean isHover = (mouseX >= pos.x && mouseX <= size.x+pos.x && mouseY >= pos.y && mouseY <= size.y+pos.y);
-    if (isHover && mousePressed && mouseButton == LEFT && btnId == 0) {
+    if (isHover && mousePressed && mouseButton == LEFT) {
       isClicked = true;
       isChanged = true;
-    } else if (isHover && mousePressed && mouseButton != LEFT && mouseButton != RIGHT && btnId == 1) {
+      but = "L";
+    } else if (isHover && mousePressed && mouseButton != LEFT && mouseButton != RIGHT) {
       isClicked = true;
       isChanged = true;
-    } else if (isHover && mousePressed && mouseButton == RIGHT && btnId == 2) {
+      but = "M";
+    } else if (isHover && mousePressed && mouseButton == RIGHT) {
       isClicked = true;
       isChanged = true;
+      but = "R";
     } else {
       if (isChanged && !mousePressed) {
         isChanged = false;
@@ -28,7 +32,7 @@ class button {
     }
   }
 
-  
+
   void drawMe() {
     rect(pos.x, pos.y, size.x, size.y);
     textSize(16);

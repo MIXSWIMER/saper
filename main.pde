@@ -1,5 +1,3 @@
-
-
 int size = 10;
 int res = 30;
 int tick = 0;
@@ -46,8 +44,11 @@ void draw() {
         button btn = new button();
         btn.size.set(new PVector(res, res));
         btn.pos.set(new PVector(x*res, y*res));
-        btn.colour = color(127, 127, 127);
+        btn.colour = new int[] {100, 100, 100};
         line.add(btn);
+        if (mines[x][y]) {
+          btn.text = "*";
+        }
       }
       buttons.add(line);
     }
@@ -61,24 +62,35 @@ void draw() {
 
       // draw button
       stroke(30);
-      fill(btn.colour);
+      fill(btn.colour[0], btn.colour[1], btn.colour[2]);
       btn.drawMe();
 
       // action after klick
       btn.checkPressed(0);
       if (btn.isClicked && !mousePressed) {
-        //check mines count
-        if (mines[x][y]) {
-        } else {
-          int minesCount = 0;
-          for (int dx = -1; dx < 2; dx++) {
-            for (int dy = -1; dy < 2; dy++) {
-              if (x+dx > -1 && x+dx < size && y+dy > -1 && y+dy < size) {
-                if (mines[x+dx][y+dy]) minesCount++;
+        if (btn.but == "L") {
+          //check mines count
+          if (mines[x][y]) {
+            btn.colour = new int[] {170, 30, 30};
+          } else {
+            int minesCount = 0;
+            for (int dx = -1; dx < 2; dx++) {
+              for (int dy = -1; dy < 2; dy++) {
+                if (x+dx > -1 && x+dx < size && y+dy > -1 && y+dy < size) {
+                  if (mines[x+dx][y+dy]) minesCount++;
+                }
               }
             }
+            if (minesCount != 0) btn.text = str(minesCount);
+            btn.colour = new int[] {160, 160, 160};
           }
-          if (minesCount != 0) btn.text = str(minesCount);
+          // switch button color
+        } else if (btn.but == "R") {
+          if (btn.colour[1] != 170) {
+            btn.colour = new int[] {30, 170, 30};
+          } else {
+            btn.colour = new int[] {160, 160, 160};
+          }
         }
       }
     }
